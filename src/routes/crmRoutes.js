@@ -12,6 +12,7 @@ import {
   loginRequired,
   getUserWithID,
   updateUserWithID,
+  getUsers,
 } from "../controllers/userController";
 
 const routes = (app) => {
@@ -33,6 +34,7 @@ const routes = (app) => {
 
   //   // delete a specific contact
   //   .delete(loginRequired, deleteContact);
+  app.route("/users").get(getUsers);
 
   app
     .route("/user/:userID")

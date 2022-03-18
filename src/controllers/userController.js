@@ -95,3 +95,13 @@ export const updateUserWithID = (req, res) => {
     }
   );
 };
+
+export const getUsers = (req, res) => {
+  console.log("getUsers");
+  User.find({}, (err, user) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+};
