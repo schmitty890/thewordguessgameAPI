@@ -59,6 +59,10 @@ app.get("/", (req, res) => {
   res.send("test route!");
 });
 
+setInterval(function () {
+  http.get("http://thewordguessgameapi.herokuapp.com/");
+}, 300000); // every 5 minutes (300000)
+
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
