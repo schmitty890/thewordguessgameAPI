@@ -18,20 +18,28 @@ export const loginRequired = (req, res, next) => {
 export const register = (req, res) => {
   const newUser = new User(req.body);
   console.log(newUser);
-  newUser.hashPassword = bcrypt.hashSync(req.body.password, 10);
-  console.log(newUser);
-  newUser.save((err, user) => {
-    if (err) {
-      return res.status(400).send({ message: err });
+  User.findOne({ email: req.body.email }).then(function (result) {
+    console.log("if check for result");
+    if (result) {
+      console.log("email already exists");
+      return res.status(409).json({ message: "email already exists." });
     } else {
-      user.hashPassword = undefined;
-      // return res.json(user);
-      return res.json({
-        token: jwt.sign(
-          { email: user.email, firstName: user.firstName, _id: user.id },
-          "RESTFULAPIs"
-        ),
-        _id: user.id,
+      newUser.hashPassword = bcrypt.hashSync(req.body.password, 10);
+      console.log(newUser);
+      newUser.save((err, user) => {
+        if (err) {
+          return res.status(400).send({ message: err });
+        } else {
+          user.hashPassword = undefined;
+          // return res.json(user);
+          return res.json({
+            token: jwt.sign(
+              { email: user.email, firstName: user.firstName, _id: user.id },
+              "RESTFULAPIs"
+            ),
+            _id: user.id,
+          });
+        }
       });
     }
   });
