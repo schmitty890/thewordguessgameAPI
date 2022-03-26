@@ -39,7 +39,7 @@ const routes = (app) => {
   app
     .route("/user/:userID")
     // get user with specific id
-    .get(loginRequired, getUserWithID)
+    .get(getUserWithID)
     // update a specific contact
     .put(loginRequired, updateUserWithID);
 
