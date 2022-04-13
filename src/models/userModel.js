@@ -10,6 +10,9 @@ export const UserSchema = new Schema({
   email: {
     type: String,
   },
+  imageUrl: {
+    type: String,
+  },
   hashPassword: {
     type: String,
   },
