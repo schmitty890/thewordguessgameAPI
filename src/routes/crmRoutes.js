@@ -11,6 +11,7 @@ import {
   register,
   loginRequired,
   getUserWithID,
+  getUserWithEmail,
   updateUserWithID,
   getUsers,
 } from "../controllers/userController";
@@ -40,6 +41,7 @@ const routes = (app) => {
     .route("/user/:userID")
     // get user with specific id
     .get(getUserWithID)
+
     // update a specific contact
     .put(loginRequired, updateUserWithID);
 
@@ -48,6 +50,11 @@ const routes = (app) => {
 
   // login route
   app.route("/login").post(login);
+
+  app
+    .route("/getUserByEmail/:email")
+    // get user with specific email
+    .get(getUserWithEmail);
 };
 
 export default routes;

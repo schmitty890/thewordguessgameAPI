@@ -7,6 +7,7 @@ const User = mongoose.model("User", UserSchema);
 
 export const loginRequired = (req, res, next) => {
   console.log(req);
+
   if (req.user) {
     console.log("we in here login required");
     next();
@@ -107,6 +108,19 @@ export const updateUserWithID = (req, res) => {
 export const getUsers = (req, res) => {
   console.log("getUsers");
   User.find({}, (err, user) => {
+    if (err) {
+      res.send(err);
+    }
+    res.json(user);
+  });
+};
+
+export const getUserWithEmail = (req, res) => {
+  console.log("we are here");
+  console.log(req.params.email);
+  User.find({ email: { $eq: req.params.email } }, (err, user) => {
+    console.log("we are in finding by email");
+    console.log(user);
     if (err) {
       res.send(err);
     }
