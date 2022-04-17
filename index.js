@@ -5,6 +5,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import http from "http";
 import routes from "./src/routes/crmRoutes";
+import gameRoutes from "./src/routes/gameRoutes";
+import globalDailyGameRoutes from "./src/routes/globalDailyGameRoutes";
 
 const app = express();
 
@@ -53,6 +55,8 @@ app.use((req, res, next) => {
 app.use(express.static("public"));
 
 routes(app);
+gameRoutes(app);
+globalDailyGameRoutes(app);
 
 app.get("/", (req, res) => {
   console.log(`hi on port ${PORT}`);
