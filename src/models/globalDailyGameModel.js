@@ -13,6 +13,9 @@ export const GlobalDailyGameSchema = new Schema({
       },
     },
   ],
+  attemptsRemaining: {
+    type: Number,
+  },
   streak: {
     type: Number,
   },
