@@ -11,12 +11,36 @@ export const GlobalDailyGameSchema = new Schema({
       word: {
         type: String,
       },
+      correctSpots: [
+        {
+          spot: {
+            type: String,
+          },
+          letter: {
+            type: String,
+          },
+        },
+      ],
     },
   ],
   attemptsRemaining: {
     type: Number,
   },
+  correctGuessToday: {
+    type: Boolean,
+    default: false,
+  },
   streak: {
+    type: Number,
+    default: 0,
+  },
+  day: {
+    type: Number,
+  },
+  month: {
+    type: Number,
+  },
+  year: {
     type: Number,
   },
 });

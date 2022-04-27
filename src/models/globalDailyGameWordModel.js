@@ -7,13 +7,13 @@ export const GlobalDailyGameWordSchema = new Schema({
     type: String,
   },
   day: {
-    type: String,
+    type: Number,
   },
   month: {
-    type: String,
+    type: Number,
   },
   year: {
-    type: String,
+    type: Number,
   },
 });
 
