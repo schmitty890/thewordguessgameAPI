@@ -34,6 +34,10 @@ export const GlobalDailyGameSchema = new Schema({
     type: Number,
     default: 0,
   },
+  maxStreak: {
+    type: Number,
+    default: 0,
+  },
   day: {
     type: Number,
   },

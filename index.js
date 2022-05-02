@@ -7,6 +7,7 @@ import http from "http";
 import routes from "./src/routes/crmRoutes";
 import gameRoutes from "./src/routes/gameRoutes";
 import globalDailyGameRoutes from "./src/routes/globalDailyGameRoutes";
+import subscribeRoutes from "./src/routes/subscribeRoutes";
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use(express.static("public"));
 routes(app);
 gameRoutes(app);
 globalDailyGameRoutes(app);
+subscribeRoutes(app);
 
 app.get("/", (req, res) => {
   console.log(`hi on port ${PORT}`);
