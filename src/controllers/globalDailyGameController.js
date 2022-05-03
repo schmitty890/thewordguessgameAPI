@@ -152,6 +152,7 @@ export const guessGlobalDailyGameWord = async (req, res) => {
               res.json({ message: "correct guess" });
             } else {
               // res.json(word);
+              console.log("guess 1");
               res.json({ message: "keep guessing" });
             }
             // res.json(word);
@@ -204,6 +205,7 @@ export const guessGlobalDailyGameWord = async (req, res) => {
               res.json({ message: "correct guess" });
             } else {
               // res.json(user);
+              console.log("guess 2");
               res.json({ message: "keep guessing" });
             }
             // res.json(user);
@@ -242,6 +244,7 @@ export const guessGlobalDailyGameWord = async (req, res) => {
           console.log("A CORRECT GUESS WAS MADE 4");
         }
         req.body.guesses[0].correctSpots = checkWordGuess.correctSpotsArray;
+
         console.log("A GUESS WAS MADE 4");
         console.log("here here");
         console.log(checkWordGuess.correctSpotsArray);
@@ -255,7 +258,9 @@ export const guessGlobalDailyGameWord = async (req, res) => {
                 correctSpots: req.body.guesses[0].correctSpots,
               },
             },
+            $inc: { attemptsRemaining: -1 },
           },
+
           { new: false, useFindAndModify: true },
           (err, user) => {
             if (err) {
@@ -265,7 +270,20 @@ export const guessGlobalDailyGameWord = async (req, res) => {
               res.json({ message: "correct guess" });
             } else {
               // res.json(user);
-              res.json({ message: "keep guessing" });
+              console.log("guess 3");
+              // console.log(user);
+              let message = "";
+              // console.log("DO WE GET IN?????????????????????????????????");
+              console.log(user.attemptsRemaining);
+              if (user.attemptsRemaining === 1) {
+                // console.log("CHECK HERE");
+                // console.log(checkWordGuess);
+                // console.log("CHECK HERE");
+                message = `The answer is: ${checkWordGuess.answer.toUpperCase()}`;
+              } else {
+                message = "keep guessing";
+              }
+              res.json({ message });
             }
           }
         );
@@ -293,6 +311,7 @@ export const guessGlobalDailyGameWord = async (req, res) => {
       console.log(checkWordGuess);
       // console.log(req.body.guesses.correctSpots);
       req.body.guesses[0].correctSpots = checkWordGuess.correctSpotsArray;
+      req.body.attemptsRemaining = 4;
       console.log("HERRRREEEEEEE");
       console.log("A GUESS WAS MADE 3");
       const newGlobalDailyGame = new GlobalDailyGame(req.body);
@@ -304,6 +323,7 @@ export const guessGlobalDailyGameWord = async (req, res) => {
             res.json({ message: "correct guess" });
           } else {
             // res.json(word);
+            console.log("guess 4");
             res.json({ message: "keep guessing" });
           }
           // return res.json(word);
@@ -374,9 +394,11 @@ const checkGlobalDailyWordGuess = async (answer, guess, userID) => {
   console.log(dataObj.correctSpotsArray);
   if (answer === guess) {
     dataObj.correctGuess = true;
+    dataObj.answer = answer;
     return dataObj;
   } else {
     dataObj.correctGuess = false;
+    dataObj.answer = answer;
     return dataObj;
   }
 };
