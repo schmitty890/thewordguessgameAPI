@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { GlobalDailyGameSchema } from "../models/globalDailyGameModel";
 import { GlobalDailyGameWordSchema } from "../models/globalDailyGameWordModel";
-// const testDay = 20;
+// const testDay = 6;
 const GlobalDailyGame = mongoose.model(
   "GlobalDailyGame",
   GlobalDailyGameSchema
@@ -29,8 +29,10 @@ export const resetDailyGuesses = async (req, res) => {
       ) {
         console.log(result.correctGuessToday);
         let correctGuessLastPlayed;
+        let attemptsRemaining;
         if (!result.correctGuessToday) {
           correctGuessLastPlayed = 0;
+          attemptsRemaining = 5;
         }
         GlobalDailyGame.findOneAndUpdate(
           { userID: req.body.userID },
@@ -42,6 +44,7 @@ export const resetDailyGuesses = async (req, res) => {
               guesses: [],
               correctGuessToday: false,
               streak: correctGuessLastPlayed,
+              attemptsRemaining: attemptsRemaining,
             },
           },
           { new: false, useFindAndModify: true },
