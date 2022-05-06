@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { GlobalDailyGameSchema } from "../models/globalDailyGameModel";
 import { GlobalDailyGameWordSchema } from "../models/globalDailyGameWordModel";
-const testDay = 7;
+// const testDay = 7;
 const GlobalDailyGame = mongoose.model(
   "GlobalDailyGame",
   GlobalDailyGameSchema
@@ -14,7 +14,7 @@ export const resetDailyGuesses = async (req, res) => {
     "determine if we should reset the daily guesses since its a new day"
   );
 
-  req.body.day = testDay;
+  // req.body.day = testDay;
   GlobalDailyGame.findOne({ userID: req.body.userID }).then(async function (
     result
   ) {
