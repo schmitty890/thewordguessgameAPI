@@ -32,8 +32,8 @@ export const resetDailyGuesses = async (req, res) => {
         let attemptsRemaining;
         if (!result.correctGuessToday) {
           correctGuessLastPlayed = 0;
-          attemptsRemaining = 5;
         }
+        attemptsRemaining = 5;
         GlobalDailyGame.findOneAndUpdate(
           { userID: req.body.userID },
           {
@@ -141,6 +141,7 @@ export const guessGlobalDailyGameWord = async (req, res) => {
               day: req.body.day,
               year: req.body.year,
               correctGuessToday: req.body.correctGuessToday,
+              attemptsRemaining: 5,
               guesses: {
                 word: req.body.guesses[0].word,
               },
